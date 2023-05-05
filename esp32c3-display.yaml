@@ -1,0 +1,169 @@
+esphome:
+  name: esp32c3-display
+  friendly_name: esp32c3-display
+  platformio_options:
+    board_build.flash_mode: dio
+
+
+graph:
+  - id: sgvgraph 
+    sensor: sgv 
+    duration: 3h
+    width: 160
+    height: 64
+    x_grid: 1h
+    min_value: 0
+    max_value: 300
+    y_gridlines: [70, 180]
+    border: true
+    # border_type: top_bottom
+
+esp32:
+  board: seeed_xiao_esp32c3
+  variant: esp32c3
+  framework:
+    type: arduino
+    version: 2.0.7
+    platform_version: 6.1.0
+
+# Enable logging
+logger:
+  #level: DEBUG  #VERBOSE
+  level: VERBOSE
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "nrwiGNzBAnRS6qxqH8NTQvPaDunSme2lqMBJED0/IcU="
+  reboot_timeout: 10800s
+
+ota:
+  password: "260c3824e18eaa5a8631d3f7556b2ce5"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  reboot_timeout: 1h
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esp32C3-Breadboard"
+    password: "QfTgS0BWNgWD"
+
+captive_portal:
+
+
+font:
+  - file: "gfonts://Roboto"
+    id: roboto
+    size: 20
+  - file: "gfonts://Roboto"
+    id: roboto_big
+    size: 25
+
+
+spi:
+  clk_pin: 8
+  mosi_pin: 10
+
+#time:
+#  - platform: homeassistant
+#    id: esptime
+
+
+http_request:
+  useragent: esphome/device
+  timeout: 10s
+
+#interval:
+#  - interval: 1min
+#    then:
+#      - script.execute: fetch_from_nightscout
+#script:
+#  - id: fetch_from_nightscout
+#    then:
+#         - lambda: |-
+#                -|
+
+sensor:
+  - platform: template
+    name: "SGV"
+    id: sgv
+    unit_of_measurement: mg/dl
+  - platform: template
+    name: "SGV delta"
+    id: sgv_delta
+    unit_of_measurement: mg/dl/reading
+  - platform: template
+    name: "Latest Reading"
+    id: sgv_ts
+    unit_of_measurement: sec
+
+#graph:
+#  # Show bare-minimum auto-ranged graph
+#  - id: sgvgraph 
+#    sensor: sgv 
+#    duration: 3h
+#    width: 160
+#    height: 64
+#    border: false
+#    x_grid: 1h
+#    y_grid: 100 
+#    min_value: 0
+#    max_value: 300
+
+time:
+  - platform: sntp
+    id: sntptime
+    timezone: America/New_York
+    on_time:
+      - seconds: 0
+        minutes: /1
+        then:
+          - lambda: |-
+              HTTPClient http;
+              http.begin("https://YOUR-NIGHTSCOUT-URL-HERE/api/v1/entries.json");
+              http.GET();
+              DynamicJsonDocument doc(5000);
+              deserializeJson(doc, http.getStream());
+              for (JsonObject item : doc.as<JsonArray>()) {
+                auto g = id(sgvgraph);
+                auto traces = g->get_traces();
+                auto t = traces.front();
+                auto hd = t->get_tracedata();
+                int reading = doc["sgv"];
+                int ms = doc["mills"];
+                hd->take_sample(reading,ms);
+              }
+              int reading = doc[0]["sgv"];
+              id(sgv).publish_state(reading);
+              float delta = doc[0]["delta"];
+              id(sgv_delta).publish_state(delta);
+              long long reading_ms = doc[0]["mills"];
+              long reading_sec = reading_ms / 1000;
+              id(sgv_ts).publish_state(reading_sec);
+  
+display:
+  - platform: ssd1322_spi
+    model: "SSD1322 256x64"
+    id: oled
+    reset_pin: 7 # D5
+    cs_pin: 21  # D6
+    dc_pin: 6  # D4
+    brightness: 20%
+    lambda: |-
+      //ESP_LOGD("custom", "This is a custom debug message");
+      //it.line(0, 0, 50, 50);
+      it.strftime(0, 63, id(roboto_big), TextAlign::BASELINE_LEFT, "%H:%M", id(sntptime).now());
+      char plus_or_nothing = ' ';
+      int delta = id(sgv_delta).state;
+      if (delta >= 0) plus_or_nothing = '+';
+      it.printf(0, 0, id(roboto_big), "%.0f %c%d", id(sgv).state, plus_or_nothing, delta);
+      long time_now_sec = id(sntptime).utcnow().timestamp;
+      long sec_delta = time_now_sec - int(id(sgv_ts).state);
+      int mins = sec_delta / 60;
+      int secs = sec_delta % 60;
+      //it.printf(0, 25, id(roboto), "%c%.0f -%dm%ds", plus_or_nothing, id(sgv_delta).state, mins, secs);
+      it.graph(96,0,id(sgvgraph));
+      //it.printf(96, 63, id(roboto), TextAlign::BASELINE_RIGHT, "-%d:%02d", mins, secs);
+      it.printf(96, 63, id(roboto), TextAlign::BASELINE_RIGHT, "%dm", mins);

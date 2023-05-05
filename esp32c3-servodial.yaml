@@ -1,0 +1,146 @@
+esphome:
+  name: esp32c3-servodial
+  friendly_name: esp32c3-servodial
+  platformio_options:
+    board_build.flash_mode: dio
+
+esp32:
+  board: seeed_xiao_esp32c3
+  variant: esp32c3
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "TjM1TXxFyjpLxJ6Q0DPyanl/vm8kLkt4wEpVmoNjU+E="
+
+ota:
+  password: "0054549b2a79fc916e589e18862a29d8"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esp32C3-Servodial"
+    password: "CTNmDvbFJhtc"
+
+captive_portal:
+    
+servo:
+ - id: my_servo
+   output: pwm_output
+   auto_detach_time: 1s
+   min_level: 12%
+   max_level: 2%
+
+output:
+ - platform: ledc
+   id: pwm_output
+   pin: GPIO10
+   frequency: 50 Hz
+
+switch:
+  - id: connect_nightscout_to_servo
+    name: "Connect NightScout to servo"
+    platform: template
+    optimistic: True
+
+http_request:
+ useragent: esphome/device
+ timeout: 10s
+
+interval:
+ - interval: 1min
+   then:
+     - script.execute: fetch_from_nightscout
+
+script:
+ - id: fetch_from_nightscout
+   then:
+        - lambda: |-
+             HTTPClient http;
+             http.begin("https://YOUR-NIGHTSCOUT-URL-HERE/api/v1/entries.json");
+             http.GET();
+             DynamicJsonDocument doc(5000);
+             deserializeJson(doc, http.getStream());
+             int reading = doc[0]["sgv"];
+             auto call = id(sgv_in).make_call();
+             call.set_value(reading);
+             call.perform();
+             id(sgv_text).publish_state(to_string(reading));
+
+number:
+  - id: sgv_in
+    name: "SGV reading"
+    platform: template
+    step: 1
+    min_value: 0
+    max_value: 400
+    set_action:
+      then:
+        - if:
+            condition:
+              lambda: 'return id(connect_nightscout_to_servo).state;'
+            then:
+            - number.set:
+                id: sgv_out
+                value: !lambda "return x;"
+  - id: sgv_out
+    name: "SGV to output"
+    platform: template
+    step: 1
+    min_value: 0
+    max_value: 400
+    set_action:
+      then:
+        - number.set:
+            id: servo_level
+            value: !lambda |-
+                const int n_calib = 13;
+                int calib[13][2] = {{40,-100},{60,-86},{80,-65},{100,-50},{120,-33},{140,-14},{160,4},{180,19},{200,31},{240,49},{260,63},{280,77},{300,90}};
+                if (x < 40) return -100;
+                if (x > 300) return 100;
+                for (int i = 0; i < n_calib - 1; i++) {
+                  if (x >= calib[i][0] && x < calib[i+1][0]) {
+                    float local_slope = (1.0 * calib[i+1][1] - calib[i][1])/(calib[i+1][0] - calib[i][0]);
+                    float local_dx = x - calib[i][0];
+                    float local_dy = local_dx * local_slope;
+                    float y = calib[i][1] + local_dy;
+                    return y;
+                  }
+                }
+                return 0.0;
+
+  - id: servo_level
+    name: "Servo level"
+    platform: template
+    step: 1
+    min_value: -100
+    max_value: 100
+    optimistic: true
+    mode: box
+    set_action:
+      then:
+        - servo.write:
+            id: my_servo
+            level: !lambda 'return x / 100;'
+        - text_sensor.template.publish:
+            id: servo_level_text
+            state: !lambda 'return to_string(x);'
+
+text_sensor:
+  - id: servo_level_text
+    platform: template
+    name: "Servo Level as text"
+  - id: sgv_text
+    platform: template
+    name: "SGV as text"
+
+time:
+ - platform: sntp
