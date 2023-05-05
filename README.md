@@ -4,6 +4,7 @@
 
 <!--![Belt Clip](https://bucket.diyabetes.org/Belt%20Clip.jpg){: title="hi" } -->
 <img alt="Belt Clip" src="https://bucket.diyabetes.org/Belt%20Clip.jpg" style="max-width: 100%;">
+
 OpenSCAD
 
 STL
@@ -18,9 +19,9 @@ STL
 ![Radio Separate](https://bucket.diyabetes.org/Radio%20Separated.jpg) -->
 <img alt="Radio Separated" src="https://bucket.diyabetes.org/Radio%20Separated.jpg" style="max-width: 100%;">
 
-OpenSCAD
+[OpenSCAD](tslim_radio_facade_r2.scad)
 
-STL
+[STL](tslim_radio_facade_r5.stl)
 
 ## Dial
 
@@ -32,21 +33,23 @@ Displays current sensor glucose value data from Nightscout (see below)
 
 ### Enclosure
 
-OpenSCAD
+[OpenSCAD](servo_holder.scad)
 
-STL
+[STL](servo_holder_2_5mm.stl)
 
 ### Dial
 
-OpenSCAD
+[OpenSCAD](servo_arm.scad)
 
-STL
+[STL - 30mm](servo_arm_30.stl)  
+[STL - 40mm](servo_arm_40.stl)  
+[STL - 60mm](servo_arm_60.stl)
 
 ### Microcontroller
 
 I used a [SeeedStudio Xiao ESP32-C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html), though you can use almost any ESP32 or ESP8266 or Raspberry Pi Pico W board.
 
-esphome YAML
+[esphome YAML](esp32c3-servodial.yaml) - be sure to update your NightScout URL where it says YOUR-NIGHTSCOUT-URL-HERE, and use the values for API encryption key, OTA password, and WiFi AP password that were generated for you from by esphome template
 
 ### Components
 
@@ -71,7 +74,7 @@ WIP :)
 
 I used a [SeeedStudio Xiao ESP32-C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html), though you can use almost any ESP32 or ESP8266 or Raspberry Pi Pico W board.
 
-esphome YAML
+[esphome YAML](esp32c3-display.yaml) - be sure to update your NightScout URL where it says YOUR-NIGHTSCOUT-URL-HERE, and use the values for API encryption key, OTA password, and WiFi AP password that were generated for you from by esphome template
 
 ### Components
 
