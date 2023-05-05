@@ -49,6 +49,12 @@ Displays current sensor glucose value data from Nightscout (see below)
 
 I used a [SeeedStudio Xiao ESP32-C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html), though you can use almost any ESP32 or ESP8266 or Raspberry Pi Pico W board.
 
+It's running [ESPHome](https://esphome.io/), an easy way to program microcontrollers using only a text configuration file.
+
+You don't need Home Assistant, though it's a nice-to-have. [Here] is SeeedStudio's tutorial for installing ESPHome on the Xiao ESP32-C3 module, though not of those steps are necessary (I certainly didn't).
+
+Once you create your device in ESPHome, you will have the opportunity to update the YAML (Yet Another Markup Language) file. Here's the template that I used:
+
 [esphome YAML](esp32c3-servodial.yaml) - be sure to update your NightScout URL where it says YOUR-NIGHTSCOUT-URL-HERE, and use the values for API encryption key, OTA password, and WiFi AP password that were generated for you from by esphome template
 
 ### Components
@@ -73,6 +79,12 @@ WIP :)
 ### Microcontroller
 
 I used a [SeeedStudio Xiao ESP32-C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html), though you can use almost any ESP32 or ESP8266 or Raspberry Pi Pico W board.
+
+It's running [ESPHome](https://esphome.io/), an easy way to program microcontrollers using only a text configuration file.
+
+You don't need Home Assistant, though it's a nice-to-have. [Here] is SeeedStudio's tutorial for installing ESPHome on the Xiao ESP32-C3 module, though not of those steps are necessary (I certainly didn't).
+
+Once you create your device in ESPHome, you will have the opportunity to update the YAML (Yet Another Markup Language) file. Here's the template that I used:
 
 [esphome YAML](esp32c3-display.yaml) - be sure to update your NightScout URL where it says YOUR-NIGHTSCOUT-URL-HERE, and use the values for API encryption key, OTA password, and WiFi AP password that were generated for you from by esphome template
 
