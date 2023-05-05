@@ -27,14 +27,8 @@ STL
 <!-- ![Dial](https://bucket.diyabetes.org/Dial.jpg) -->
 <img alt="Dial" src="https://bucket.diyabetes.org/Dial.jpg" style="max-width: 100%;">
 
-Displays current sensor glucose value data from [Nightscout](http://www.nightscout.info/)
+Displays current sensor glucose value data from Nightscout (see below)
 
-Ostensibly most microcontrollers have BlueTooth Low Energy and could communicate directly with the Dexcom G6 or BlueJay watch or even Tandem T-slim X2, this is not implemented yet; plus that may interfere with other connectivity. So as of now it requires WiFi, but does not need to be on the same network. So it could be used to monitor family, patients, etc. as long as you have access to their NightScout data (read-only access is fine)
-
-To get data into NightScout, you can use:
- - xDrip+ app on Android
- - Dexcom Share
- - TconnectSync (though data will be delayed by up to one hour; the patch to shorten this to 5 minutes does not work on recent versions)
 
 ### Enclosure
 
