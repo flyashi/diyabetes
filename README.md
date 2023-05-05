@@ -2,7 +2,7 @@
 
 ## Dexcom G6 receiver belt clip
 
-(photo)
+![Belt Clip](https://bucket.diyabetes.org/Belt%20Clip.jpg)
 
 OpenSCAD
 
@@ -11,7 +11,9 @@ STL
 
 ## Tandem T-slim X2 "radio" cover
 
-(photo)
+![Radio Wearing](https://bucket.diyabetes.org/Radio%20Wearing.jpg)
+
+![Radio Separate](https://bucket.diyabetes.org/Radio%20Separated.jpg)
 
 OpenSCAD
 
@@ -19,7 +21,8 @@ STL
 
 ## Dial
 
-(photo)
+![Dial](https://bucket.diyabetes.org/Dial.jpg)
+
 
 Displays current sensor glucose value data from [Nightscout](http://www.nightscout.info/)
 
@@ -44,7 +47,7 @@ STL
 
 ### Microcontroller
 
-I used a SeeedStudio Xiao ESP32-C3, though you can use any ESP32 or ESP8266 or Raspberry Pi Pico W board.
+I used a [SeeedStudio Xiao ESP32-C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html), though you can use almost any ESP32 or ESP8266 or Raspberry Pi Pico W board.
 
 esphome YAML
 
@@ -58,7 +61,7 @@ Servo actually does run on 3.3v, though not as "fast". This enables the option o
 
 ## Display
 
-(photo)
+![Display](https://bucket.diyabetes.org/Display.jpg)
 
 Displays info and graphs data from NightScout
 
@@ -66,13 +69,9 @@ Displays info and graphs data from NightScout
 
 WIP :)
 
-### Display
-
-
-
 ### Microcontroller
 
-I used a SeeedStudio Xiao ESP32-C3, though you can use any ESP32 or ESP8266 or Raspberry Pi Pico W board.
+I used a [SeeedStudio Xiao ESP32-C3](https://www.seeedstudio.com/Seeed-XIAO-ESP32C3-p-5431.html), though you can use almost any ESP32 or ESP8266 or Raspberry Pi Pico W board.
 
 esphome YAML
 
