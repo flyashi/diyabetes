@@ -2,8 +2,8 @@
 
 ## Dexcom G6 receiver belt clip
 
-![Belt Clip](https://bucket.diyabetes.org/Belt%20Clip.jpg)
-
+<!--![Belt Clip](https://bucket.diyabetes.org/Belt%20Clip.jpg){: title="hi" } -->
+<img alt="Belt Clip" src="https://bucket.diyabetes.org/Belt%20Clip.jpg" style="max-width: 100%;">
 OpenSCAD
 
 STL
@@ -11,9 +11,12 @@ STL
 
 ## Tandem T-slim X2 "radio" cover
 
-![Radio Wearing](https://bucket.diyabetes.org/Radio%20Wearing.jpg)
+<!--![Radio Wearing](https://bucket.diyabetes.org/Radio%20Wearing.jpg)-->
+<img alt="Radio Wearing" src="https://bucket.diyabetes.org/Radio%20Wearing.jpg" style="max-width: 100%;">
 
-![Radio Separate](https://bucket.diyabetes.org/Radio%20Separated.jpg)
+<!-- 
+![Radio Separate](https://bucket.diyabetes.org/Radio%20Separated.jpg) -->
+<img alt="Radio Separated" src="https://bucket.diyabetes.org/Radio%20Separated.jpg" style="max-width: 100%;">
 
 OpenSCAD
 
@@ -21,8 +24,8 @@ STL
 
 ## Dial
 
-![Dial](https://bucket.diyabetes.org/Dial.jpg)
-
+<!-- ![Dial](https://bucket.diyabetes.org/Dial.jpg) -->
+<img alt="Dial" src="https://bucket.diyabetes.org/Dial.jpg" style="max-width: 100%;">
 
 Displays current sensor glucose value data from [Nightscout](http://www.nightscout.info/)
 
@@ -61,7 +64,8 @@ Servo actually does run on 3.3v, though not as "fast". This enables the option o
 
 ## Display
 
-![Display](https://bucket.diyabetes.org/Display.jpg)
+<!-- ![Display](https://bucket.diyabetes.org/Display.jpg) -->
+<img alt="Display" src="https://bucket.diyabetes.org/Display.jpg" style="max-width: 100%;">
 
 Displays info and graphs data from NightScout
 
