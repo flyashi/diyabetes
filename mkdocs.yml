@@ -1,0 +1,9 @@
+site_name: DIYabetes
+site_url: https://diyabetes.org/
+theme:
+  name: material
+nav:
+ - Home: index.md
+ - About: about.md
+ - Cases and Enclosures: cases.md
+ - Viewing: viewing.md
