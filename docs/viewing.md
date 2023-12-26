@@ -106,11 +106,11 @@ Anything with a 1.25mm JST-PH 2-pin connector should work. The LilyGo kit comes 
 
 ### Source code
 
-The code is in (this GitHub repo)[https://github.com/flyashi/nightscout_epd].
+The code is in [this GitHub repo](https://github.com/flyashi/nightscout_epd).
 
 This is direct Arduino code, not using esphome like the others. This is because the esphome drivers for the e-paper display weren't great - they didn't sleep the display when they should have, for example (or perhaps I just wasn't using it quite right).
 
-I borrowed significant concepts from (this weather display)[https://github.com/G6EJD/LilyGo-EPD-4-7-OWM-Weather-Display-1]; used with explicit permission given citation.
+I borrowed significant concepts from [this weather display](https://github.com/G6EJD/LilyGo-EPD-4-7-OWM-Weather-Display-1); used with explicit permission given citation.
 
 ## Nightscout
 
