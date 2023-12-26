@@ -86,6 +86,32 @@ Depending on your specific display and chip, just update the YAML with the pin c
 
 The NewHaven display I used ran just fine on 3.3v from the regulator on the the Xiao ESP32-C3 module.
 
+## E-Paper Module
+
+This is a small device that displays some basic info on an easy to read e-paper display. Lasts a few days on a battery charge (can be extended with better software), and readable in any light. Does not give off its own light so cannot be read at night.
+
+<img alt="epaper" src="https://bucket.diyabetes.org/EPaperModule.jpg" style="max-width: 50%;">
+
+### Enclosure
+
+Choose your favorite from Thingiverse. I chose [this one](https://www.thingiverse.com/thing:4055993).
+
+### Module
+
+It's the [LilyGo T5](https://www.lilygo.cc/products/t5-v2-3-1?variant=42366871666869). Just look for 2.13" epaper modules on AliExpress.
+
+### Battery
+
+Anything with a 1.25mm JST-PH 2-pin connector should work. The LilyGo kit comes with an adapter but you'll have to connect it to your own battery, or get a matching battery; [this one](https://www.aliexpress.us/item/2255799965175200.html) should match, just choose the correct connector.
+
+### Source code
+
+The code is in (this GitHub repo)[https://github.com/flyashi/nightscout_epd].
+
+This is direct Arduino code, not using esphome like the others. This is because the esphome drivers for the e-paper display weren't great - they didn't sleep the display when they should have, for example (or perhaps I just wasn't using it quite right).
+
+I borrowed significant concepts from (this weather display)[https://github.com/G6EJD/LilyGo-EPD-4-7-OWM-Weather-Display-1]; used with explicit permission given citation.
+
 ## Nightscout
 
 The display and the dial currently display near-real-time (<1 minute lag) data from [Nightscout](http://www.nightscout.info/)
