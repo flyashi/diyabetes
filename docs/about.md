@@ -2,7 +2,7 @@
 
 ## History
 
-I'm a computer engineer by day, and these decide have helped me personally and hopefully they'll be useful to others as well.
+I'm a computer engineer by day, and these devices have helped me personally and hopefully they'll be useful to others as well.
 
 ## Availability
 
