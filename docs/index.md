@@ -12,3 +12,5 @@ Besides what's provided by medical companies, here's some things I did myself. I
 [<img alt="Dial" src="https://bucket.diyabetes.org/Dial.jpg" style="max-width: 50%;">](/viewing/#dial)
 
 [<img alt="Display" src="https://bucket.diyabetes.org/Display.jpg" style="max-width: 50%;">](/viewing/#display)
+
+[<img alt="epaper" src="https://bucket.diyabetes.org/EPaperModule.jpg" style="max-width: 50%;">](/viewing/#e-paper-module)
