@@ -112,9 +112,27 @@ This is direct Arduino code, not using esphome like the others. This is because 
 
 I borrowed significant concepts from [this weather display](https://github.com/G6EJD/LilyGo-EPD-4-7-OWM-Weather-Display-1); used with explicit permission given citation.
 
+## Cheap Yellow Display (CYD)
+
+This is a 2.8" touch-enabled LCD with an ESP32.
+
+<img alt="cheap yellow display" src="https://bucket.diyabetes.org/CheapYellowDisplay.jpg" style="max-width: 50%;">
+
+### Module
+
+It's this [Cheap Yellow Display](https://hackaday.com/2023/10/28/cheap-yellow-display-builds-community-through-hardware/). ESP32, 320×480 resistive touch screen, and an RGB LED in the back to boot. The [GitHub repo](https://github.com/witnessmenow/ESP32-Cheap-Yellow-Display) is linked from the Hackaday post as well.
+
+### Enclosure
+
+There's a few on Thingiverse; the one in the picture is [this one](https://www.thingiverse.com/thing:5680106).
+
+### Source Code
+
+On [GitHub](https://github.com/flyashi/nightscout_cyd). As of this writing there's a memory leak and it stops updating the readings after ~24 hours. I'm working on trying to find and fix it (hence the RAM usage in the corner of the picture)
+
 ## Nightscout
 
-The display and the dial currently display near-real-time (<1 minute lag) data from [Nightscout](http://www.nightscout.info/)
+The displays and the dial currently display near-real-time (<1 minute lag) data from [Nightscout](http://www.nightscout.info/)
 
 Ostensibly most microcontrollers have Bluetooth Low Energy and could communicate directly with the Dexcom G6, BlueJay watch, or even Tandem T-slim X2, though this is not implemented yet. Also, that may interfere with other connectivity, as the G6 can communicate with only two devices - one is generally the pump, and the other would have to be this secondary display rather than a possibly more important device like a phone or watch.
 
